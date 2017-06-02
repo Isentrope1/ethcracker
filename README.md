@@ -24,6 +24,6 @@ java -cp [jar] com.isentropy.ethcrack.Ethcracker [OPTIONS]
 
 ## Checking Results
 
-The discovered password is written to stdout as "FOUND PASSWORD: ...", but consider using the --out option output it to a file automatically.
+The discovered password is written to stdout as "FOUND PASSWORD: ...", but consider using the --out option, which outputs it to a file automatically.
 
 Ethcracker exits with retcode 0 if it found the password and 1 if it ran without error but didn't find password. Other return codes indicate an error. 
