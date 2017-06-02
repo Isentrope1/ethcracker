@@ -6,8 +6,8 @@ For lawful use only.
 
 ## Building
   * git clone https://github.com/isentropy/ethcracker.git
-  *cd ethcracker
-  *mvn package
+  * cd ethcracker
+  * mvn package
 
 ## Running
 You can use the included wrapper script:
@@ -17,10 +17,10 @@ or run with java
 java -cp <jar> com.isentropy.ethcrack.Ethcracker <OPTIONS>
 
 ## Options
-  *--wallet <file> : the wallet file to crack [required]
-  *--pwfile <file> : newline separted list of passwords to try [optional, uses stdin if absent]
-  *--out <file> : a file to write the password, if found [optional]
-  *--threads <n> : # consumer threads [optional, chosen automatically]
+  * --wallet <file> : the wallet file to crack [required]
+  * --pwfile <file> : newline separted list of passwords to try [optional, uses stdin if absent]
+  * --out <file> : a file to write the password, if found [optional]
+  * --threads <n> : # consumer threads [optional, chosen automatically]
 
 ## Checking Results
 
