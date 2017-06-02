@@ -11,16 +11,16 @@ For lawful use only.
 
 ## Running
 You can use the included wrapper script:
-./ethcrack.sh <wallet file> <passwords file>
+./ethcrack.sh [wallet file] [passwords file]
 
 or run with java
-java -cp <jar> com.isentropy.ethcrack.Ethcracker <OPTIONS>
+java -cp [jar] com.isentropy.ethcrack.Ethcracker [OPTIONS]
 
 ## Options
-  * --wallet <file> : the wallet file to crack [required]
-  * --pwfile <file> : newline separted list of passwords to try [optional, uses stdin if absent]
-  * --out <file> : a file to write the password, if found [optional]
-  * --threads <n> : # consumer threads [optional, chosen automatically]
+  * --wallet [FILE] : the wallet file to crack [required]
+  * --pwfile [FILE] : newline separted list of passwords to try [optional, uses stdin if absent]
+  * --out [FILE] : a file to write the password, if found [optional]
+  * --threads [N] : # consumer threads [optional, chosen automatically]
 
 ## Checking Results
 
