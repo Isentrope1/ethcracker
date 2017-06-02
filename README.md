@@ -5,7 +5,7 @@ Ethcracker is Copyright 2017 [Isentropy LLC](https://isentropy.com) and licensed
 For lawful use only. 
 
 ## Building
-  *git clone https://github.com/isentropy/ethcracker.git
+  * git clone https://github.com/isentropy/ethcracker.git
   *cd ethcracker
   *mvn package
 
