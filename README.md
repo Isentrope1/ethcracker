@@ -13,8 +13,8 @@ For lawful use only.
 You can use the included wrapper script:
 ./ethcrack.sh [wallet file] [passwords file]
 
-or run with java
-java -cp [jar] com.isentropy.ethcrack.Ethcracker [OPTIONS]
+or run with java:
+java -cp target/ethcracker-0.1.jar com.isentropy.ethcrack.Ethcracker [OPTIONS]
 
 ## Options
   * --wallet [FILE] : the wallet file to crack [required]
