@@ -34,8 +34,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import computurd.util.IOUtils;
-
 public class Ethcracker {
 	
 	public static final String INFO = "Ethcracker v0.1 - Copyright 2017 Isentropy LLC (https://isentropy.com)\n"+
