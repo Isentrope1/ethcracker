@@ -1,4 +1,4 @@
-Ethcracker is a multi-threaded, pure java dictionary password cracker for Ethereum wallets. It relies on [web3j](https://github.com/web3j/web3j). 
+Ethcracker is a multi-threaded, pure java dictionary password cracker for Ethereum wallets. It depends on [web3j](https://github.com/web3j/web3j). 
 
 Ethcracker is Copyright 2017 [Isentropy LLC](https://isentropy.com) and licensed under the [LGPL version 3](https://www.gnu.org/copyleft/lesser.html).
 
