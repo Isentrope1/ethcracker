@@ -1,6 +1,6 @@
 /**
  * Copyright 2017 Isentropy LLC (http://isentropy.com)
- * Written by Jonathan Wolff
+ * Written by Jonathan Wolff (jwolff@isentropy.com)
  * Licensed under LGPL v3 (https://www.gnu.org/licenses/lgpl-3.0.en.html) 
  */
 
@@ -63,8 +63,6 @@ public class Ethcracker {
 						int n = triedPasswds.incrementAndGet();
 						if(opts.updateProgressCount > 0 && n % opts.updateProgressCount == 0)
 							System.out.print("Tried passwords: "+n + "\r");
-
-						//System.out.println("Tried: "+ pw);
 					}
 				}
 			} catch (Exception e) {
@@ -82,7 +80,6 @@ public class Ethcracker {
 			try{
 				while((l = br.readLine()) != null){
 					n++;
-
 					String pw = l.trim();
 					while(!pws.offer(pw, waitTimeMs, TimeUnit.MILLISECONDS)){
 						if(foundPassword != null)
@@ -105,7 +102,7 @@ public class Ethcracker {
 		wallet = objectMapper.readValue(new File(opts.walletFile), WalletFile.class);
 	}
 
-	public void start() throws IOException{
+	public void run() throws IOException{
 		executor.execute(new Producer());
 		for(int i=0; i< opts.threads; i++){
 			executor.execute(new Consumer());
@@ -179,7 +176,7 @@ public class Ethcracker {
 			}
 			System.out.println("Options:\n"+opts+"\n");
 			Ethcracker ec = new Ethcracker(opts);
-			ec.start();
+			ec.run();
 			if(ec.foundPassword == null)
 				System.exit(1);
 		}

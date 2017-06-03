@@ -1,6 +1,6 @@
 /**
  * Copyright 2017 Isentropy LLC (http://isentropy.com)
- * Written by Jonathan Wolff
+ * Written by Jonathan Wolff (jwolff@isentropy.com)
  * Licensed under LGPL v3 (https://www.gnu.org/licenses/lgpl-3.0.en.html) 
  */
 
