@@ -4,17 +4,23 @@ Ethcracker is Copyright 2017 [Isentropy LLC](https://isentropy.com) and licensed
 
 For lawful use only. 
 
-## Building
+## Installing
+Download the [standalone jar](https://github.com/isentropy/ethcracker/releases/download/v0.1/ethcracker-0.1.jar) or 
+
+### Build from Source
+
   * git clone https://github.com/isentropy/ethcracker.git
   * cd ethcracker
   * mvn package
+
+The compiled jar will be in the 'target' dir.
 
 ## Running
 You can use the included wrapper script:
 ./ethcrack.sh [wallet file] [passwords file]
 
 or run with java:
-java -cp target/ethcracker-0.1.jar com.isentropy.ethcrack.Ethcracker [OPTIONS]
+java -cp ethcracker-0.1.jar com.isentropy.ethcrack.Ethcracker [OPTIONS]
 
 ## Options
   * --wallet [FILE] : the wallet file to crack [required]
