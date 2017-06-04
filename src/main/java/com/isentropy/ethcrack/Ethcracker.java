@@ -47,17 +47,18 @@ public class Ethcracker {
 	protected ArrayBlockingQueue<String> pws;
 	protected String foundPassword = null;
 	protected AtomicInteger triedPasswds = new AtomicInteger(0);
+	protected boolean done = false, producerdone = false;
 	
 	class Consumer implements Runnable {  
 		public void run() {  
 			try {
-				while(foundPassword == null){
+				while(!done){
 					String pw = pws.poll(waitTimeMs, TimeUnit.MILLISECONDS);
 					if(pw == null)
 						continue;
 					if(test(wallet, pw)){
 						foundPassword = pw;
-						executor.shutdown();
+						done = true;
 					}
 					else{
 						int n = triedPasswds.incrementAndGet();
@@ -67,7 +68,7 @@ public class Ethcracker {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				executor.shutdown();
+				done = true;
 			}
 		}  
 	}  
@@ -78,18 +79,21 @@ public class Ethcracker {
 			BufferedReader br = new BufferedReader(opts.passwords);
 			String l;
 			try{
-				while((l = br.readLine()) != null){
+				while(!done && (l = br.readLine()) != null){
 					n++;
-					String pw = l.trim();
+					String pw = l;
 					while(!pws.offer(pw, waitTimeMs, TimeUnit.MILLISECONDS)){
-						if(foundPassword != null)
+						if(done)
 							return;
 					}
 				}
 			}
 			catch(Exception e){
 				e.printStackTrace();
-				executor.shutdown();
+				done = true;
+			}
+			finally{
+				producerdone = true;
 			}
 		}  
 	}  
@@ -107,8 +111,13 @@ public class Ethcracker {
 		for(int i=0; i< opts.threads; i++){
 			executor.execute(new Consumer());
 		}
+		//running tasks finish after shutdown
+		executor.shutdown();
+		
 		while(!executor.isTerminated()){
 			try {
+				if(producerdone && pws.isEmpty())
+					done = true;
 				Thread.sleep(waitTimeMs);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -123,6 +132,9 @@ public class Ethcracker {
 				fos.close();
 			}
 		}
+		else
+			System.out.println("\nPASSWORD NOT FOUND in " +triedPasswds + " attempts");
+			
 	}
 
 	public boolean test(WalletFile wf, String pw) throws IOException, InterruptedException{
