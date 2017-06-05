@@ -26,7 +26,7 @@ java -cp ethcracker-0.1.jar com.isentropy.ethcrack.Ethcracker [OPTIONS]
   * --wallet [FILE] : the wallet file to crack [required]
   * --pwfile [FILE] : newline separted list of passwords to try [optional, uses stdin if absent]
   * --out [FILE] : a file to write the password, if found [optional]
-  * --threads [N] : # consumer threads [optional, chosen automatically]
+  * --threads [N] : # consumer threads [optional, chosen automatically as 2*num_cpu_cores]
 
 ## Checking Results
 
