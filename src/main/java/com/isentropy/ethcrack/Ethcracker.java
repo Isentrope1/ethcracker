@@ -36,9 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Ethcracker {
 	enum Status{working,done,err};
-	public static final String INFO = "Ethcracker v0.1 - Copyright 2017 Isentropy LLC (https://isentropy.com)\n"+
-									  "----------------------------------------------------------------------";
-
+	public static final String INFO = "Ethcracker v0.1\n";
 	
 	protected int waitTimeMs = 1000;
 	protected EthcrackerOptions opts;
