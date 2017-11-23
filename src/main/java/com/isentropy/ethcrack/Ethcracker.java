@@ -51,7 +51,7 @@ public class Ethcracker {
 	class Consumer implements Runnable {  
 		public void run() {  
 			try {
-				while(status != Status.done){
+				while(status == Status.working){
 					String pw = pws.poll(waitTimeMs, TimeUnit.MILLISECONDS);
 					if(pw == null)
 						continue;
@@ -78,7 +78,7 @@ public class Ethcracker {
 			BufferedReader br = new BufferedReader(opts.passwords);
 			String l;
 			try{
-				while(status != Status.done && (l = br.readLine()) != null){
+				while(status == Status.working && (l = br.readLine()) != null){
 					n++;
 					String pw = l;
 					while(!pws.offer(pw, waitTimeMs, TimeUnit.MILLISECONDS)){
