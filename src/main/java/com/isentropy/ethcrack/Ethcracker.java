@@ -35,7 +35,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Ethcracker {
-	
+	enum Status{working,done,err};
 	public static final String INFO = "Ethcracker v0.1 - Copyright 2017 Isentropy LLC (https://isentropy.com)\n"+
 									  "----------------------------------------------------------------------";
 
@@ -47,18 +47,19 @@ public class Ethcracker {
 	protected ArrayBlockingQueue<String> pws;
 	protected String foundPassword = null;
 	protected AtomicInteger triedPasswds = new AtomicInteger(0);
-	protected boolean done = false, producerdone = false;
+	protected Status status = Status.working;
+	protected boolean producerdone = false;
 	
 	class Consumer implements Runnable {  
 		public void run() {  
 			try {
-				while(!done){
+				while(status != Status.done){
 					String pw = pws.poll(waitTimeMs, TimeUnit.MILLISECONDS);
 					if(pw == null)
 						continue;
 					if(test(wallet, pw)){
 						foundPassword = pw;
-						done = true;
+						status = Status.done;
 					}
 					else{
 						int n = triedPasswds.incrementAndGet();
@@ -68,7 +69,7 @@ public class Ethcracker {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				done = true;
+				status = Status.err;
 			}
 		}  
 	}  
@@ -79,18 +80,18 @@ public class Ethcracker {
 			BufferedReader br = new BufferedReader(opts.passwords);
 			String l;
 			try{
-				while(!done && (l = br.readLine()) != null){
+				while(status != Status.done && (l = br.readLine()) != null){
 					n++;
 					String pw = l;
 					while(!pws.offer(pw, waitTimeMs, TimeUnit.MILLISECONDS)){
-						if(done)
+						if(status == Status.done)
 							return;
 					}
 				}
 			}
 			catch(Exception e){
 				e.printStackTrace();
-				done = true;
+				status = Status.err;
 			}
 			finally{
 				producerdone = true;
@@ -117,10 +118,11 @@ public class Ethcracker {
 		while(!executor.isTerminated()){
 			try {
 				if(producerdone && pws.isEmpty())
-					done = true;
+					status = Status.done;
 				Thread.sleep(waitTimeMs);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+				status = Status.err;
 			}
 		}
 		if(foundPassword != null){
@@ -189,6 +191,11 @@ public class Ethcracker {
 			System.out.println("Options:\n"+opts+"\n");
 			Ethcracker ec = new Ethcracker(opts);
 			ec.run();
+			if(ec.status == Status.err){
+				final int retcode = 4;
+				System.out.println("Exiting with error. retcode "+retcode);
+				System.exit(retcode);
+			}
 			if(ec.foundPassword == null)
 				System.exit(1);
 		}
